@@ -1,0 +1,37 @@
+现在已经了解了 Redux 的所有核心原则！ 已经了解了如何创建 action 和 action creator，创建 Redux store，通过 store dispatch action，以及使用纯粹的 reducer 设计状态更新。 甚至已经看到过如何使用 reducer 组合管理复杂状态并处理异步操作。 这些例子很简单，但这些概念是 Redux 的核心原则。 如果已经理解这些，那么就可以开始构建自己的 Redux 应用了。 接下来的挑战包括关于 state 不变性的一些细节，但是，这里是对到目前为止学到的所有内容的回顾。
+
+在本课程中，将从头开始使用 Redux 实现一个简单的计数器。 基本知识在代码编辑器中提供，但你必须完成细节！ 使用提供的名称定义 incAction 和 decAction action creator，counterReducer()，INCREMENT和DECREMENT action 类型，以及 Redux store。 一旦完成，应该能够 dispatch INCREMENT 或 DECREMENT 动作来增加或减少 store 中保存的状态。
+** start of script.js **
+
+const INCREMENT = "INCREMENT"; // 为 increment action types 定义一个常量
+const DECREMENT = "DECREMENT"; // 为 decrement action types 定义一个常量
+
+const counterReducer = (state = 0, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return state + 1;
+
+    case DECREMENT:
+      return state - 1;
+
+    default:
+      return state;
+  }
+}; // 定义 counter reducer，根据接收到的动作递增或递减 state
+
+const incAction = ()=>{
+  return {
+    type:INCREMENT
+  };
+}; // 为自增运算定义一个动作创建器
+
+const decAction = ()=>{
+  return {
+    type:DECREMENT
+  };
+}; // 为自减运算定义一个动作创建器
+
+const store = Redux.createStore(counterReducer);; // 在这里定义 Redux store，传入 reducers
+
+** end of script.js **
+

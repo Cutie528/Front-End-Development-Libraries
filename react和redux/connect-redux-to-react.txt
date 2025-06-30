@@ -1,0 +1,47 @@
+你已经写了mapStateToProps()、mapDispatchToProps() 两个函数，现在可以用它们来把 state 和 dispatch 映射到 React 组件的 props 了。 React Redux 的 connect 方法可以完成这个任务。 此方法有 mapStateToProps()、mapDispatchToProps() 两个可选参数， 它们是可选的，原因是你的组件可能仅需要访问 state 但不需要分发任何 actions，反之亦然。
+
+为了使用此方法，需要传入函数参数并在调用时传入组件。 这种语法有些不寻常，如下所示：
+
+connect(mapStateToProps, mapDispatchToProps)(MyComponent)
+注意：如果要省略 connect 方法中的某个参数，则应当用 null 替换这个参数。
+
+代码编辑器具有 mapStateToProps() 和 mapDispatchToProps() 函数，以及一个名为 Presentational 的新 React 组件。 使用 ReactRedux 全局对象中的 connect 方法将此组件连接到 Redux，并立即在 Presentational 组件上调用它。 将结果赋值给名为 ConnectedComponent 的新 const，表示连接的组件。 就是这样，现在你已经连接到 Redux 了！ 尝试将 connect 的参数更改为 null，并观察测试结果。
+
+** start of index.jsx **
+
+const addMessage = (message) => {
+  return {
+    type: 'ADD',
+    message: message
+  }
+};
+
+const mapStateToProps = (state) => {
+  return {
+    messages: state
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitNewMessage: (message) => {
+      dispatch(addMessage(message));
+    }
+  }
+};
+
+class Presentational extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <h3>This is a Presentational Component</h3>
+  }
+};
+
+const connect = ReactRedux.connect;
+// 修改这行下面的代码
+const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps) (Presentational)
+
+** end of index.jsx **
+
